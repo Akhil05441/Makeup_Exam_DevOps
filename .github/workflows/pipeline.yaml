@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 1. Source Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 2. Build Simulation
         run: echo "Building application..." && mkdir -p artifacts && echo "build-data" > artifacts/build.zip
@@ -33,7 +33,7 @@ jobs:
           conftest test deployments/app-deploy.yaml -p policies/deployment.rego
 
       - name: 6. Save Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-artifacts
           path: artifacts/
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Deploy to Production
         run: |
