@@ -1,0 +1,36 @@
+# DEVOPS MAKEUP EXAM - COMMAND EXECUTION HISTORY
+
+## 1. Linux Administration & User Management
+mkdir -p {configs,deployments,policies,reports/sonarqube,artifacts,backup}
+sudo groupadd developers
+sudo groupadd operations
+sudo useradd -m -g developers developer
+sudo useradd -m -g developers tester
+sudo useradd -m -g operations devopsadmin
+sudo chown -R devopsadmin:developers .
+sudo chmod -R 775 .
+
+## 2. Configuration & Backup
+touch configs/deployment.yaml configs/pipeline.yaml configs/security.conf
+cp configs/deployment.yaml backup/deployment_$(date +%Y%m%d_%H%M%S).yaml
+cp configs/pipeline.yaml backup/pipeline_$(date +%Y%m%d_%H%M%S).yaml
+cp configs/security.conf backup/security_$(date +%Y%m%d_%H%M%S).conf
+
+## 3. Git Initialization & Branching
+git init
+git checkout -b main
+git branch development
+git branch staging
+git branch production
+
+## 4. Advanced Git Operations Performed
+# - Resolved Merge Conflicts between staging and development
+# - Git Stash / Pop
+# - Git Cherry-Pick
+# - Git Revert
+# - Git Restore (Recovered deleted file)
+
+## 5. CI/CD & Security Tools
+# - Created GitHub Actions workflow (.github/workflows/pipeline.yaml)
+# - Integrated SonarQube validation
+# - Configured Open Policy Agent (OPA) with policies/deployment.rego

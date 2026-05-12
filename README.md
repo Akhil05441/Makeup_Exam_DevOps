@@ -5,3 +5,6 @@
 * **main**: Contains production-ready code.
 * **staging**: Pre-production environment for testing.
 * **development**: Active development branch where features are integrated.
+
+## Execution Commands
+For a full step-by-step list of commands executed to build this infrastructure, please refer to the [commands.txt](./commands.txt) file.
