@@ -66,6 +66,24 @@ deny[msg] {
 }
 EOF
 
+# PHASE 3: Version Control (Git)
+# ==========================================
+echo "--> [Phase 3] Initializing Git and creating branches..."
+git init
+git checkout -b main
+
+# Create the initial commit so branches can be made
+git add .
+git commit -m "chore: initial automated setup of DevOps platform"
+
+git branch development
+git branch staging
+git branch production
+
+echo "=========================================="
+echo "Setup Complete! Your DevOps environment is fully built."
+echo "Note: Advanced Git operations (like merge conflicts and cherry-picking) must be done manually."
+
 echo "--> [Phase 4] Generating Dummy Deployment for Testing..."
 cat << 'EOF' > deployments/app-deploy.yaml
 apiVersion: apps/v1
@@ -126,22 +144,36 @@ jobs:
           path: artifacts/
 EOF
 
-
+# PHASE 5 :- INNOVATION DONE EXCEPT FROM THE QUESTION :-
 # ==========================================
-# PHASE 3: Version Control (Git)
-# ==========================================
-echo "--> [Phase 3] Initializing Git and creating branches..."
-git init
-git checkout -b main
+1 :- I integrated GitHub Dependabot to automate the monitoring of security vulnerabilities within GitHub Action dependencies.
+This ensures that the CI/CD runner environments are always patched against known exploits.
+Commands :-
+# Configuration for automated security updates
+cat << 'EOF' > .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+EOF 
+2 :- Policy-Compliant Containerization (Dockerfile)
+To validate the Open Policy Agent (OPA) rules created in Phase 4,
+I authored a secure Dockerfile. Unlike standard implementations,
+this container explicitly satisfies our security requirements by abandoning the root user
+and avoiding the insecure :latest image tag.
+# Utilizing a specific version tag to satisfy OPA 'latest' tag policy
+FROM node:18.17.0-alpine
 
-# Create the initial commit so branches can be made
-git add .
-git commit -m "chore: initial automated setup of DevOps platform"
+WORKDIR /app
+COPY . .
 
-git branch development
-git branch staging
-git branch production
+# SECURITY ENFORCEMENT: Creating and switching to a non-root user 
+# This satisfies the OPA 'runAsNonRoot' security validation
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
 
-echo "=========================================="
-echo "Setup Complete! Your DevOps environment is fully built."
-echo "Note: Advanced Git operations (like merge conflicts and cherry-picking) must be done manually."
+EXPOSE 8080
+CMD ["npm", "start"]
+
