@@ -33,7 +33,7 @@ jobs:
           conftest test deployments/app-deploy.yaml -p policies/deployment.rego
 
       - name: 6. Save Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: deployment-artifacts
           path: artifacts/
