@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 1. Source Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: 2. Build Simulation
         run: echo "Building application..." && mkdir -p artifacts && echo "build-data" > artifacts/build.zip
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       
       - name: Deploy to Production
         run: |
